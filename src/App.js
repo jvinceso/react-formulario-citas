@@ -22,8 +22,8 @@ body{
 }
 `;
 const data_ini =[
-  { id:45, nombre: 'Juan', apellido:'Perez' , direccion:'las vegas' , fecha:'22/06/2020' , hora:'15:12' , sintomas:'fiebre'},
-  { id:46, nombre: 'Pedro', apellido:'Puñeta' , direccion:'Lso Angeles' , fecha:'27/06/2020' , hora:'20:11' , sintomas:'dolor uña'},
+  { id:45, nombre: 'Juan', apellido:'Perez' , direccion:'las vegas' , fecha:'2020-06-13' , hora:'15:12' , sintomas:'fiebre'},
+  { id:46, nombre: 'Pedro', apellido:'Puñeta' , direccion:'Lso Angeles' , fecha:'2020-05-20' , hora:'20:11' , sintomas:'dolor uña'},
 ]
 
 const initalState = {
@@ -35,6 +35,7 @@ const initalState = {
     hora: "",
     sintomas: "",
   },
+  edicion:false,
   error: false,
 };
 
@@ -53,10 +54,15 @@ class App extends Component {
   // citaTmp = {id:45, nombre: 'Juan', apellido:'Perez' , direccion:'las vegas' , 
   // fecha:'22/06/2020' , hora:'15:12' , sintomas:'fiebre'};
 
-
+  setearData =(e)=>{
+    this.setState({
+      cita: { ...this.state.cita, [e.target.name]: e.target.value },
+    });
+  }
   agregarCita = (cita) => {
     this.setState({ listaCitas: [...this.state.listaCitas, cita] });
-  
+    console.log("Refactor Agregar cicuta?");
+    console.log(this.state);
 
     this.setState({
       citaObjPrincipal:{
@@ -72,22 +78,26 @@ class App extends Component {
       //agregar nuevo arreglo de citas
     this.setState({ listaCitas: nuevaListaCitas });
   };
-  editarCita = (id) => {
+  mostrarInformacionEleccion = (id) => {
     const citaElegida = this.state.listaCitas.filter(
       (cita) => cita.id == id
     );
     console.log("citaElegida");
     console.log(citaElegida[0]);
-    this.setState({ citaObj: citaElegida[0], estamoseditando:true });
+    // const citaActualizar = {...this.state.citaObjPrincipal.cita, citaElegida[0],edicion:rue};
+    // this.setState({ parejaSeleccionada });    
+    this.setState({ citaObjPrincipal:{cita: citaElegida[0],edicion:true}, estamoseditando:true });
+    console.log("estaaaateee");
+    console.log(this.state);
   };
-  actualizarCita = (cita) => {
-    const nuevaListaCitas = this.state.listaCitas.filter(
-      (tcita) => tcita.id === cita.id ? cita:tcita
-    );
-    console.log("citaactualizando....");
+  // actualizarCita = (cita) => {
+  //   const nuevaListaCitas = this.state.listaCitas.filter(
+  //     (tcita) => tcita.id === cita.id ? cita:tcita
+  //   );
+  //   console.log("citaactualizando....");
     
-    this.setState({ listaCitas: this.state.listaCitas, estamoseditando:false });
-  };
+  //   this.setState({ listaCitas: this.state.listaCitas, estamoseditando:false });
+  // };
     
 
 
@@ -95,12 +105,11 @@ class App extends Component {
     return (
       <div>
         <GlobalStyle />
-        <Formulario agregarCita={this.agregarCita} actualizarCita={this.state.citaObj} />
+        <Formulario agregarCita={this.agregarCita} citaTransferencia={this.state.citaObjPrincipal.cita} estamoseditando={this.state.estamoseditando} />
         <ListaCitas
           listaCitas={this.state.listaCitas}
           elimnarCita={this.elimnarCita}
-          editarCita={this.editarCita}
-          estamosenEdicion = {this.state.estamoseditando}
+          mostrarInformacionEleccion={this.mostrarInformacionEleccion}
         />
       </div>
     );

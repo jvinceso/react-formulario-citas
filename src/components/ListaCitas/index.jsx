@@ -6,7 +6,7 @@ import { ContainerList } from "./style.js";
 
 class ListaContainer extends Component {
   render() {
-    const { listaCitas, elimnarCita, editarCita,estamosenEdicion} = this.props;
+    const { listaCitas, elimnarCita, mostrarInformacionEleccion,estamosenEdicion} = this.props;
 
     if (listaCitas.length === 0) return <Titulo titulo={"Sin Citas"} />;
     return (
@@ -14,7 +14,7 @@ class ListaContainer extends Component {
         <Titulo titulo={"Lista de citas"} />
         <ContainerList>
           {listaCitas.map((cita) => (
-            <Cita key={cita.id} cita={cita} elimnarCita={elimnarCita}  editarCita={editarCita}/>
+            <Cita key={cita.id} cita={cita} elimnarCita={elimnarCita}  mostrarInformacionEleccion={mostrarInformacionEleccion}/>
           ))}
         </ContainerList>
       </Fragment>

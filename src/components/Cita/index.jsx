@@ -26,10 +26,10 @@ const Cita = (props) => {
   }
   const handleEdit = (id) => (e) =>{
     e.preventDefault();
-    console.log("edicion");
+    console.log("consulta inforamción");
     //this.state.editando =true;
     console.log(id);
-    props.editarCita(id);
+    props.mostrarInformacionEleccion(id);
   }
   
   return (

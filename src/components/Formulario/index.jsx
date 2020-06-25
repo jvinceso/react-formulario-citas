@@ -12,22 +12,23 @@ import {
   Alert,
 } from "./style.js";
 
-const initalState = {
-  cita: {
-    nombre: "",
-    apellido: "",
-    direccion: "",
-    fecha: "",
-    hora: "",
-    sintomas: "",
-  },
-  editando: false,
-  error: false,
-};
+// const initalState = {
+//   cita: {
+//     nombre: "",
+//     apellido: "",
+//     direccion: "",
+//     fecha: "",
+//     hora: "",
+//     sintomas: "",
+//   },
+//   editando: false,
+//   error: false,
+// };
 
 class Formulario extends Component {
   constructor(props) {
     super(props);
+    this.state = {cita:{}}
     // this.state = {
     //   cita: initalState.cita
     //  };
@@ -40,12 +41,15 @@ class Formulario extends Component {
       cita: { ...this.state.cita, [e.target.name]: e.target.value },
     });
   };
-
+  handleClickEdit = (e) => {
+    e.preventDefault();
+  }
   handleClick = (e) => {
     e.preventDefault();
 
     const { cita } = this.state;
-
+    console.log("this->state");
+    console.log(cita);
     if (
       cita.nombre === "" ||
       cita.apellido === "" ||
@@ -58,31 +62,18 @@ class Formulario extends Component {
       return;
     }
     console.log("estado edicion");
-    console.log(this.state.editando);
-    // if(this.state.editando){
-    //   this.state.cita = 
-    //   {
-    //     id:user.id, nombre: user.nombre, apellido: user.apellido , direccion: user.direccion , fecha: user.fecha , hora: user.hora  , sintomas: user.sintomas 
-    //   }
-
-    // }
-    if(this.state.editando){
-      this.props.editarCita(cita);
-    }else{
-      const nuevaCita = { ...this.state.cita };
-      nuevaCita.id = uuidv4();
-  
-      console.log(nuevaCita);
-  
-      this.props.agregarCita(nuevaCita);
+    console.log(this.state);
+    const nuvoRegistroCita = {...this.state.cita};
+    if(nuvoRegistroCita.id===""){
+      nuvoRegistroCita.id = uuidv4();
     }
-    // this.setState({ ...initalState });
+    this.props.agregarCita(nuvoRegistroCita);
   };
   
-  componentWillReceiveProps(propsss){
+  componentWillReceiveProps(propiedades){
     this.setState({
       ...this.state,
-      cita:{...propsss.cita}
+      cita:{...propiedades.citaTransferencia.cita}
     })
   }
   
@@ -157,14 +148,17 @@ class Formulario extends Component {
             </FormGroup>
           )}
 
-          {(this.state.editando)?
+          {/* {(this.state.editando)?
           <FormGroup>
             <Button onClick={this.handleClickEdit}>Editar cita</Button>
           </FormGroup>
           :<FormGroup>
             <Button onClick={this.handleClick}>reservar cita</Button>
           </FormGroup>
-          }
+          } */}
+          <FormGroup>
+            <Button onClick={this.handleClick}>reservar cita</Button>
+          </FormGroup>
         </Form>
       </div>
     );
