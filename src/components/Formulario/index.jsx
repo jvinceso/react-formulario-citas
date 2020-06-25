@@ -12,26 +12,25 @@ import {
   Alert,
 } from "./style.js";
 
-// const initalState = {
-//   cita: {
-//     nombre: "",
-//     apellido: "",
-//     direccion: "",
-//     fecha: "",
-//     hora: "",
-//     sintomas: "",
-//   },
-//   editando: false,
-//   error: false,
-// };
+const initalState = {
+  cita: {
+    nombre: "",
+    apellido: "",
+    direccion: "",
+    fecha: "",
+    hora: "",
+    sintomas: "",
+  },
+  editando: false,
+  error: false,
+};
 
 class Formulario extends Component {
   constructor(props) {
     super(props);
-    this.state = {cita:{}}
-    // this.state = {
-    //   cita: initalState.cita
-    //  };
+    //super();
+    this.state = {...initalState}
+   // this.state = {...initalState };
   }
 
 
@@ -70,10 +69,9 @@ class Formulario extends Component {
     this.props.agregarCita(nuvoRegistroCita);
   };
   
-  componentWillReceiveProps(propiedades){
-    this.setState({
-      ...this.state,
-      cita:{...propiedades.citaTransferencia.cita}
+  componentWillReceiveProps(nextProps){
+    this.setState({...this.state,
+      cita:{...nextProps.citaTransferencia.cita}
     })
   }
   

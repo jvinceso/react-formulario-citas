@@ -46,9 +46,6 @@ class App extends Component {
     listaCitas:data_ini,
     citaObjPrincipal:{...initalState},
     estamoseditando:false
-    // citaObj:{
-    //   ...initalState
-    // }
   };
 
   // citaTmp = {id:45, nombre: 'Juan', apellido:'Perez' , direccion:'las vegas' , 
@@ -80,32 +77,32 @@ class App extends Component {
   };
   mostrarInformacionEleccion = (id) => {
     const citaElegida = this.state.listaCitas.filter(
-      (cita) => cita.id == id
-    );
+       (cita) => cita.id === id
+    )[0];
     console.log("citaElegida");
-    console.log(citaElegida[0]);
-    // const citaActualizar = {...this.state.citaObjPrincipal.cita, citaElegida[0],edicion:rue};
-    // this.setState({ parejaSeleccionada });    
-    this.setState({ citaObjPrincipal:{cita: citaElegida[0],edicion:true}, estamoseditando:true });
-    console.log("estaaaateee");
-    console.log(this.state);
+    console.log(citaElegida);    
+    this.setState({
+      citaObjPrincipal:{
+        cita:{
+          ...citaElegida
+        }
+        ,error:false
+        // ...initalState
+      }
+    });    
+
+    // this.setState({ citaObjPrincipal:{cita: citaElegida[0],edicion:true}, estamoseditando:true });
+    // console.log("estaaaateee");
+    // console.log(this.state);
   };
-  // actualizarCita = (cita) => {
-  //   const nuevaListaCitas = this.state.listaCitas.filter(
-  //     (tcita) => tcita.id === cita.id ? cita:tcita
-  //   );
-  //   console.log("citaactualizando....");
-    
-  //   this.setState({ listaCitas: this.state.listaCitas, estamoseditando:false });
-  // };
-    
+
 
 
   render() {
     return (
       <div>
         <GlobalStyle />
-        <Formulario agregarCita={this.agregarCita} citaTransferencia={this.state.citaObjPrincipal.cita} estamoseditando={this.state.estamoseditando} />
+        <Formulario agregarCita={this.agregarCita} citaTransferencia={this.state.citaObjPrincipal} estamoseditando={this.state.estamoseditando} />
         <ListaCitas
           listaCitas={this.state.listaCitas}
           elimnarCita={this.elimnarCita}
