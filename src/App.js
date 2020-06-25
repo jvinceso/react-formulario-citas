@@ -28,6 +28,7 @@ const data_ini =[
 
 const initalState = {
   cita: {
+    id:"",
     nombre: "",
     apellido: "",
     direccion: "",
@@ -57,9 +58,27 @@ class App extends Component {
     });
   }
   agregarCita = (cita) => {
-    this.setState({ listaCitas: [...this.state.listaCitas, cita] });
+    // this.setState({ listaCitas: [...this.state.listaCitas, cita] });
     console.log("Refactor Agregar cicuta?");
-    console.log(this.state);
+    console.log( this.state );
+    const indiceCoincidenciadeCita = this.state.listaCitas.findIndex(
+      (citaaEvaluar) => citaaEvaluar.id == cita.id
+    );
+      console.log("indiceCoincidenciadeCita");
+      console.log(indiceCoincidenciadeCita);
+    if(indiceCoincidenciadeCita>-1){
+      let listadeCitasActualizada = this.state.listaCitas;
+      listadeCitasActualizada[indiceCoincidenciadeCita] = cita;
+      console.log( "editar" );
+      console.log(listadeCitasActualizada);
+      this.setState({listaCitas:listadeCitasActualizada});
+      //Edicionnn
+    }else{
+      console.log( "register" );
+      //Registro 
+      this.setState({ listaCitas: [...this.state.listaCitas, cita] });
+
+    }
 
     this.setState({
       citaObjPrincipal:{
@@ -88,9 +107,9 @@ class App extends Component {
         }
         ,error:false
         // ...initalState
-      }
+      }//,estamoseditando:true
     });    
-
+    console.log(this.state);    
     // this.setState({ citaObjPrincipal:{cita: citaElegida[0],edicion:true}, estamoseditando:true });
     // console.log("estaaaateee");
     // console.log(this.state);

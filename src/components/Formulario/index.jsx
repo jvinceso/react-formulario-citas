@@ -62,11 +62,11 @@ class Formulario extends Component {
     }
     console.log("estado edicion");
     console.log(this.state);
-    const nuvoRegistroCita = {...this.state.cita};
-    if(nuvoRegistroCita.id===""){
-      nuvoRegistroCita.id = uuidv4();
+    const RegistrodeCita = {...this.state.cita};
+    if(RegistrodeCita.id===""){
+      RegistrodeCita.id = uuidv4();
     }
-    this.props.agregarCita(nuvoRegistroCita);
+    this.props.agregarCita(RegistrodeCita);
   };
   
   componentWillReceiveProps(nextProps){
